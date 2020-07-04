@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Example 06.02 - Advanced 3D geometries - Lathe</title>
+    <script type="text/javascript" src="../libs/three.js"></script>
+
+    <script type="text/javascript" src="../libs/stats.js"></script>
+    <script type="text/javascript" src="../libs/dat.gui.js"></script>
+    <script type="text/javascript" src="../libs/spin.js"></script>
+    <script type="text/javascript" src="../libs/ThreeBSP.js"></script>
+    <script type="text/javascript" src="../libs/controls/OrbitControls.js"></script>
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="Stats-output">
+    </div>
+    <!-- Div which will hold the Output -->
+    <div id="WebGL-output">
+    </div>
+
+    <!-- Javascript code that runs our Three.js examples -->
+    <script type="text/javascript">
+
+        // once everything is loaded, we run our Three.js stuff.
+        function init() {
+
+            let stats = initStats();
+
+            // create a scene, that will hold all our elements such as objects, cameras and lights.
+            let scene = new THREE.Scene();
+
+            // create a camera, which defines where we're looking at.
+            let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+            // create a render and set the size
+            let webGLRenderer = new THREE.WebGLRenderer();
+            webGLRenderer.setClearColor(new THREE.Color(0x000000));
+            webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+            webGLRenderer.shadowMap.enabled = true;
+
+            // position and point the camera to the center of the scene
+            camera.position.x = 30;
+            camera.position.y = 40;
+            camera.position.z = 50;
+            // camera.lookAt(new THREE.Vector3(10, 0, 0));
+
+            const controler = new THREE.OrbitControls(camera);
+
+            // add the output of the renderer to the html element
+            document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
+
+            const axisXLength = 20;                     // 矢印の長さ
+            const axisXHeadLength = axisXLength * 0.05;     // 矢印の頭の長さ
+            const axisXHeadWidth = axisXHeadLength * 0.5;   // 矢印の頭の太さ
+            const directionX = new THREE.Vector3(1, 0, 0);  // 矢印の向き(X方向)
+            const startX = new THREE.Vector3(0, 0, 0);  // 矢印の始点
+            const colorX = 0xff0000;
+            const axisX = new THREE.ArrowHelper(directionX, startX, axisXLength + axisXHeadLength * 2, colorX, axisXHeadLength, axisXHeadWidth);
+            scene.add(axisX);
+
+            const axisYLength = 20;                     // 矢印の長さ
+            const axisYHeadLength = axisYLength * 0.05;     // 矢印の頭の長さ
+            const axisYHeadWidth = axisYHeadLength * 0.5;   // 矢印の頭の太さ
+            const directionY = new THREE.Vector3(0, 1, 0);  // 矢印の向き(X方向)
+            const startY = new THREE.Vector3(0, 0, 0);  // 矢印の始点
+            const colorY = 0x00ff00;
+            const axisY = new THREE.ArrowHelper(directionY, startY, axisYLength + axisYHeadLength * 2, colorY, axisYHeadLength, axisYHeadWidth);
+            scene.add(axisY);
+
+            const axisZLength = 20;                     // 矢印の長さ
+            const axisZHeadLength = axisZLength * 0.05;     // 矢印の頭の長さ
+            const axisZHeadWidth = axisZHeadLength * 0.5;   // 矢印の頭の太さ
+            const directionZ = new THREE.Vector3(0, 0, 1);  // 矢印の向き(X方向)
+            const startZ = new THREE.Vector3(0, 0, 0);  // 矢印の始点
+            const colorZ = 0x00f6ff;
+            const axisZ = new THREE.ArrowHelper(directionZ, startZ, axisZLength + axisZHeadLength * 2, colorZ, axisZHeadLength, axisZHeadWidth);
+            scene.add(axisZ);
+
+            const fontLoader = new THREE.FontLoader();
+            fontLoader.load('../assets/fonts/helvetiker_bold.typeface.js', function (font) {
+                // X
+                const textXGeometry = new THREE.TextGeometry('X', {
+                    font: font,
+                    size: axisXLength / 15,
+                    height: 0,
+                    curveSegments: 0,
+                    bevelEnabled: true,
+                    bevelThickness: 0,
+                    bevelSize: 0,
+                    bevelSegments: 0
+                });
+                const textXMaterial = new THREE.MeshBasicMaterial({ color: colorX });
+                const textX = new THREE.Mesh(textXGeometry, textXMaterial);
+                textX.position.set(axisXLength + axisXHeadLength * 2, 1, 0);
+                scene.add(textX);
+                // Y
+                const textYGeometry = new THREE.TextGeometry('Y', {
+                    font: font,
+                    size: axisYLength / 15,
+                    height: 0,
+                    curveSegments: 0,
+                    bevelEnabled: true,
+                    bevelThickness: 0,
+                    bevelSize: 0,
+                    bevelSegments: 0
+                });
+                const textYMaterial = new THREE.MeshBasicMaterial({ color: colorY });
+                const textY = new THREE.Mesh(textYGeometry, textYMaterial);
+                textY.position.set(1, axisYLength + axisYHeadLength * 2, 0);
+                scene.add(textY);
+                // Z
+                const textZGeometry = new THREE.TextGeometry('Z', {
+                    font: font,
+                    size: axisZLength / 15,
+                    height: 0,
+                    curveSegments: 0,
+                    bevelEnabled: true,
+                    bevelThickness: 0,
+                    bevelSize: 0,
+                    bevelSegments: 0
+                });
+                const textZMaterial = new THREE.MeshBasicMaterial({ color: colorZ });
+                const textZ = new THREE.Mesh(textZGeometry, textZMaterial);
+                textZ.position.set(-2, 1, axisZLength + axisZHeadLength * 2);
+                scene.add(textZ);
+            });
+
+            // call the render function
+            let step = 0;
+
+            // the mesh
+            let latheMesh;
+            let meshMaterial;
+
+            // setup the control gui
+            let controls = new function () {
+                // we need the first child, since it's a multimaterial
+
+                this.segments = 40;
+                this.phiStart = Math.PI / 2;
+                this.phiLength = 2 * Math.PI;
+                this.scale = 10;
+                this.start = 0;
+                this.end = 1;
+                this.pointNum = 10;
+
+                this.redraw = function () {
+                    scene.remove(latheMesh);
+                    generatePoints(controls.segments, controls.phiStart, controls.phiLength, controls.scale, controls.start, controls.end, controls.pointNum);
+                };
+            };
+
+            generatePoints(controls.segments, controls.phiStart, controls.phiLength, controls.scale, controls.start, controls.end, controls.pointNum);
+
+            let gui = new dat.GUI();
+            gui.add(controls, 'segments', 0, 50).step(1).onChange(controls.redraw);
+            gui.add(controls, 'phiStart', 0, 2 * Math.PI).onChange(controls.redraw);
+            gui.add(controls, 'phiLength', 0, 2 * Math.PI).onChange(controls.redraw);
+            gui.add(controls, 'scale', 0, 20).onChange(controls.redraw);
+            gui.add(controls, 'start', -20, 20).onChange(controls.redraw);
+            gui.add(controls, 'end', -20, 20).onChange(controls.redraw);
+            gui.add(controls, 'pointNum', 0, 100).onChange(controls.redraw);
+
+            render();
+
+            function generatePoints(segments, phiStart, phiLength, scale, start, end, pointNum) {
+                // add 30 random spheres
+                let points = [];
+                let height = 5;
+                let x;
+                let y;
+
+                for (let i = 0; i <= pointNum; i++) {
+                    x = (1 - i / pointNum) * start + (i / pointNum) * end;
+                    y = g(x)
+                    points.push(new THREE.Vector2(scale * y, - scale * x));
+                }
+                for (let i = pointNum; i >= 0; i--) {
+                    x = (1 - i / pointNum) * start + (i / pointNum) * end;
+                    y = f(x)
+                    points.push(new THREE.Vector2(scale * y, - scale * x));
+                }
+
+                // use the same points to create a LatheGeometry
+                let latheGeometry = new THREE.LatheBufferGeometry(points, segments, phiStart, phiLength);
+                latheMesh = createMesh(latheGeometry);
+                latheMesh.rotation.z = Math.PI / 2;
+                scene.add(latheMesh);
+            }
+
+            function f(x) {
+                return x ** 3 - 2 * x ** 2 - x + 2;
+            }
+
+            function g(x) {
+                return -2 * x + 2;
+            }
+
+            function createMesh(geom) {
+
+                let facemat = [
+                    new THREE.MeshBasicMaterial({ color: 0xffffff, opacity: 1, transparent: true }),
+                    new THREE.MeshBasicMaterial({ color: 0xffffcf, side: THREE.BackSide, opacity: 1, transparent: true }),
+                    new THREE.MeshBasicMaterial({ color: 0x1f5e44, wireframe: true, wireframeLinewidth: 100.0 })
+                ];
+
+                let mesh = THREE.SceneUtils.createMultiMaterialObject(geom, facemat);
+
+                return mesh;
+            }
+
+            function render() {
+                stats.update();
+
+                // render using requestAnimationFrame
+                requestAnimationFrame(render);
+                webGLRenderer.render(scene, camera);
+            }
+
+            function initStats() {
+
+                let stats = new Stats();
+                stats.setMode(0); // 0: fps, 1: ms
+
+                // Align top-left
+                stats.domElement.style.position = 'absolute';
+                stats.domElement.style.left = '0px';
+                stats.domElement.style.top = '0px';
+
+                document.getElementById("Stats-output").appendChild(stats.domElement);
+
+                return stats;
+            }
+        }
+        window.onload = init;
+    </script>
+</body>
+
+</html>
