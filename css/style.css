@@ -52,7 +52,7 @@ header {
 #logo {
 	padding: 20px;
 	color: #224acf;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #000000;
 }
 
 /*ロゴ画像設定*/
@@ -134,6 +134,8 @@ header {
 	overflow: hidden;
 	border-bottom: 1px solid #ccc;	/*下線の幅、線種、色*/
 	padding: 20px;	/*ボックス内の余白*/
+	margin-left: 10%;
+	margin-right: 10%;
 }
 /*h4見出しの設定*/
 .list h4 {
@@ -196,8 +198,8 @@ header {
 }
 
 .model{
-    position:relative;
-    width:80%;
+	position:relative;
+	margin-left: 10px;
     height:0;
     padding-top:30%;
 }
