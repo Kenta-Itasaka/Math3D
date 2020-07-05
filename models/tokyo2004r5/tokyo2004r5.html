@@ -126,8 +126,8 @@
             });
 
             let controls = new function () {
-                this.sphereB_x = 1.0;
-                this.scale = 10.0;
+                this.r = 1.0;
+                this.scale = 15.0;
 
                 this.intersect = function () {
                     redrawResult();
@@ -145,7 +145,7 @@
             sphere1.position.z = 0;
             sphere1.scale.set(controls.scale, controls.scale, controls.scale);
 
-            sphere2.position.x = controls.scale * controls.sphereB_x;
+            sphere2.position.x = controls.scale * controls.r;
             sphere2.position.y = 0;
             sphere2.position.z = 0;
             sphere2.scale.set(controls.scale, controls.scale, controls.scale);
@@ -155,16 +155,16 @@
 
             let gui = new dat.GUI();
 
-            gui.add(controls, "sphereB_x", -15.0, 15.0).onChange(function (e) {
-                controls.sphereB_x = e;
-                sphere2.position.x = controls.scale * controls.sphereB_x;
+            gui.add(controls, "r", -15.0, 15.0).onChange(function (e) {
+                controls.r = e;
+                sphere2.position.x = controls.scale * controls.r;
             });
 
-            gui.add(controls, "scale", 0.0, 20.0).onChange(function (e) {
+            gui.add(controls, "scale", 10.0, 20.0).onChange(function (e) {
                 controls.scale = e;
                 sphere1.scale.set(controls.scale, controls.scale, controls.scale);
                 sphere2.scale.set(controls.scale, controls.scale, controls.scale);
-                sphere2.position.x = controls.scale * controls.sphereB_x;
+                sphere2.position.x = controls.scale * controls.r;
             });
 
             gui.add(controls, "intersect");
