@@ -5,7 +5,6 @@
 <head>
     <title>Example 06.08 - Binary operations</title>
     <script type="text/javascript" src="../libs/three.js"></script>
-
     <script type="text/javascript" src="../libs/stats.js"></script>
     <script type="text/javascript" src="../libs/dat.gui.js"></script>
     <script type="text/javascript" src="../libs/spin.js"></script>
@@ -13,7 +12,6 @@
     <script type="text/javascript" src="../libs/controls/OrbitControls.js"></script>
     <style>
         body {
-            /* set margin to 0 and overflow to hidden, to go fullscreen */
             margin: 0;
             overflow: hidden;
         }
@@ -24,44 +22,25 @@
 
     <div id="Stats-output">
     </div>
-    <!-- Div which will hold the Output -->
     <div id="WebGL-output">
     </div>
 
 
-    <!-- Javascript code that runs our Three.js examples -->
     <script type="text/javascript">
 
-        // once everything is loaded, we run our Three.js stuff.
         function init() {
 
             let stats = initStats();
 
-            // create a scene, that will hold all our elements such as objects, cameras and lights.
             let scene = new THREE.Scene();
 
-            // create a camera, which defines where we're looking at.
             let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-            // create a render and set the size
             let webGLRenderer = new THREE.WebGLRenderer();
-            webGLRenderer.setClearColor(new THREE.Color(0x999999));
+            webGLRenderer.setClearColor(new THREE.Color(0x000000));
             webGLRenderer.setSize(window.innerWidth, window.innerHeight);
             webGLRenderer.shadowMap.enabled = true;
 
-            let sphere1 = createMesh(new THREE.SphereGeometry(10, 20, 30));
-            // sphere1.position.x = -2;
-
-            let sphere2 = createMesh(new THREE.SphereGeometry(10, 20, 30));
-            // sphere2.position.set(3, 0, 0);
-
-            let result;
-
-            // add the sphere to the scene
-            scene.add(sphere1);
-            scene.add(sphere2);
-
-            // position and point the camera to the center of the scene
             camera.position.x = 30;
             camera.position.y = 40;
             camera.position.z = 50;
@@ -69,39 +48,37 @@
 
             const controler = new THREE.OrbitControls(camera);
 
-            // add the output of the renderer to the html element
             document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
 
-            const axisXLength = 20;                     // 矢印の長さ
-            const axisXHeadLength = axisXLength * 0.05;     // 矢印の頭の長さ
-            const axisXHeadWidth = axisXHeadLength * 0.5;   // 矢印の頭の太さ
-            const directionX = new THREE.Vector3(1, 0, 0);  // 矢印の向き(X方向)
-            const startX = new THREE.Vector3(0, 0, 0);  // 矢印の始点
+            const axisXLength = 20;
+            const axisXHeadLength = axisXLength * 0.05;
+            const axisXHeadWidth = axisXHeadLength * 0.5;
+            const directionX = new THREE.Vector3(1, 0, 0);
+            const startX = new THREE.Vector3(0, 0, 0);
             const colorX = 0xff0000;
             const axisX = new THREE.ArrowHelper(directionX, startX, axisXLength + axisXHeadLength * 2, colorX, axisXHeadLength, axisXHeadWidth);
             scene.add(axisX);
 
-            const axisYLength = 20;                     // 矢印の長さ
-            const axisYHeadLength = axisYLength * 0.05;     // 矢印の頭の長さ
-            const axisYHeadWidth = axisYHeadLength * 0.5;   // 矢印の頭の太さ
-            const directionY = new THREE.Vector3(0, 1, 0);  // 矢印の向き(X方向)
-            const startY = new THREE.Vector3(0, 0, 0);  // 矢印の始点
+            const axisYLength = 20;
+            const axisYHeadLength = axisYLength * 0.05;
+            const axisYHeadWidth = axisYHeadLength * 0.5;
+            const directionY = new THREE.Vector3(0, 1, 0);
+            const startY = new THREE.Vector3(0, 0, 0);
             const colorY = 0x00ff00;
             const axisY = new THREE.ArrowHelper(directionY, startY, axisYLength + axisYHeadLength * 2, colorY, axisYHeadLength, axisYHeadWidth);
             scene.add(axisY);
 
-            const axisZLength = 20;                     // 矢印の長さ
-            const axisZHeadLength = axisZLength * 0.05;     // 矢印の頭の長さ
-            const axisZHeadWidth = axisZHeadLength * 0.5;   // 矢印の頭の太さ
-            const directionZ = new THREE.Vector3(0, 0, 1);  // 矢印の向き(X方向)
-            const startZ = new THREE.Vector3(0, 0, 0);  // 矢印の始点
+            const axisZLength = 20;
+            const axisZHeadLength = axisZLength * 0.05;
+            const axisZHeadWidth = axisZHeadLength * 0.5;
+            const directionZ = new THREE.Vector3(0, 0, 1);
+            const startZ = new THREE.Vector3(0, 0, 0);
             const colorZ = 0x00f6ff;
             const axisZ = new THREE.ArrowHelper(directionZ, startZ, axisZLength + axisZHeadLength * 2, colorZ, axisZHeadLength, axisZHeadWidth);
             scene.add(axisZ);
 
             const fontLoader = new THREE.FontLoader();
             fontLoader.load('../assets/fonts/helvetiker_bold.typeface.js', function (font) {
-                // X
                 const textXGeometry = new THREE.TextGeometry('X', {
                     font: font,
                     size: axisXLength / 15,
@@ -116,7 +93,7 @@
                 const textX = new THREE.Mesh(textXGeometry, textXMaterial);
                 textX.position.set(axisXLength + axisXHeadLength * 2, 1, 0);
                 scene.add(textX);
-                // Y
+
                 const textYGeometry = new THREE.TextGeometry('Y', {
                     font: font,
                     size: axisYLength / 15,
@@ -131,7 +108,7 @@
                 const textY = new THREE.Mesh(textYGeometry, textYMaterial);
                 textY.position.set(1, axisYLength + axisYHeadLength * 2, 0);
                 scene.add(textY);
-                // Z
+
                 const textZGeometry = new THREE.TextGeometry('Z', {
                     font: font,
                     size: axisZLength / 15,
@@ -148,71 +125,49 @@
                 scene.add(textZ);
             });
 
-            // call the render function
-            let step = 0;
-
-            // setup the control gui
             let controls = new function () {
+                this.sphereB_x = 1.0;
+                this.scale = 10.0;
 
-                // this.sphere1PosX = sphere1.position.x;
-                // this.sphere1PosY = sphere1.position.y;
-                // this.sphere1PosZ = sphere1.position.z;
-                this.sphere1PosX = 0;
-                this.sphere1PosY = 0;
-                this.sphere1PosZ = 0;
-                this.sphere1Scale = 1;
-
-                // this.sphere2PosX = sphere2.position.x;
-                // this.sphere2PosY = sphere2.position.y;
-                // this.sphere2PosZ = sphere2.position.z;
-                this.sphere2PosX = 2;
-                this.sphere2PosY = 0;
-                this.sphere2PosZ = 0;
-                this.sphere2Scale = 1;
-
-                this.actionSphere = "subtract";
-
-                this.showResult = function () {
+                this.intersect = function () {
                     redrawResult();
                 };
 
                 this.hideWireframes = false;
-                this.rotateResult = false;
-
             };
 
+            let sphere1 = createMesh(new THREE.SphereGeometry(radius = 1, widthSegments = 20, heightSegments = 30));
+            let sphere2 = createMesh(new THREE.SphereGeometry(radius = 1, widthSegments = 20, heightSegments = 30));
+            let result;
+
+            sphere1.position.x = 0;
+            sphere1.position.y = 0;
+            sphere1.position.z = 0;
+            sphere1.scale.set(controls.scale, controls.scale, controls.scale);
+
+            sphere2.position.x = controls.scale * controls.sphereB_x;
+            sphere2.position.y = 0;
+            sphere2.position.z = 0;
+            sphere2.scale.set(controls.scale, controls.scale, controls.scale);
+
+            scene.add(sphere1); 
+            scene.add(sphere2);
+
             let gui = new dat.GUI();
-            let guiSphere1 = gui.addFolder("Sphere1");
-            guiSphere1.add(controls, "sphere1PosX", -15, 15).onChange(function () {
-                sphere1.position.set(10 * controls.sphere1PosX, 10 * controls.sphere1PosY, 10 * controls.sphere1PosZ)
-            });
-            guiSphere1.add(controls, "sphere1PosY", -15, 15).onChange(function () {
-                sphere1.position.set(10 * controls.sphere1PosX, 10 * controls.sphere1PosY, 10 * controls.sphere1PosZ)
-            });
-            guiSphere1.add(controls, "sphere1PosZ", -15, 15).onChange(function () {
-                sphere1.position.set(10 * controls.sphere1PosX, 10 * controls.sphere1PosY, 10 * controls.sphere1PosZ)
-            });
-            guiSphere1.add(controls, "sphere1Scale", 0, 10).onChange(function (e) {
-                sphere1.scale.set(e, e, e)
+
+            gui.add(controls, "sphereB_x", -15.0, 15.0).onChange(function (e) {
+                controls.sphereB_x = e;
+                sphere2.position.x = controls.scale * controls.sphereB_x;
             });
 
-            let guiSphere2 = gui.addFolder("Sphere2");
-            guiSphere2.add(controls, "sphere2PosX", -15, 15).onChange(function () {
-                sphere2.position.set(10 * controls.sphere2PosX, 10 * controls.sphere2PosY, 10 * controls.sphere2PosZ)
+            gui.add(controls, "scale", 0.0, 20.0).onChange(function (e) {
+                controls.scale = e;
+                sphere1.scale.set(controls.scale, controls.scale, controls.scale);
+                sphere2.scale.set(controls.scale, controls.scale, controls.scale);
+                sphere2.position.x = controls.scale * controls.sphereB_x;
             });
-            guiSphere2.add(controls, "sphere2PosY", -15, 15).onChange(function () {
-                sphere2.position.set(10 * controls.sphere2PosX, 10 * controls.sphere2PosY, 10 * controls.sphere2PosZ)
-            });
-            guiSphere2.add(controls, "sphere2PosZ", -15, 15).onChange(function () {
-                sphere2.position.set(10 * controls.sphere2PosX, 10 * controls.sphere2PosY, 10 * controls.sphere2PosZ)
-            });
-            guiSphere2.add(controls, "sphere2Scale", 0, 10).onChange(function (e) {
-                sphere2.scale.set(e, e, e)
-            });
-            guiSphere2.add(controls, "actionSphere", ["subtract", "intersect", "union", "none"]);
 
-            gui.add(controls, "showResult");
-            gui.add(controls, "rotateResult");
+            gui.add(controls, "intersect");
             gui.add(controls, "hideWireframes").onChange(function () {
                 if (controls.hideWireframes) {
                     sphere1.material.visible = false;
@@ -231,8 +186,6 @@
 
                 showSpinner();
 
-                // make the call async to avoid blocking the thread. Need
-                // to set timeout > 1, if not executed immediately.
                 setTimeout(function () {
                     scene.remove(result);
                     let sphere1BSP = new ThreeBSP(sphere1);
@@ -240,19 +193,7 @@
 
                     let resultBSP;
 
-                    // first do the sphere
-                    switch (controls.actionSphere) {
-                        case "subtract":
-                            resultBSP = sphere1BSP.subtract(sphere2BSP);
-                            break;
-                        case "intersect":
-                            resultBSP = sphere1BSP.intersect(sphere2BSP);
-                            break;
-                        case "union":
-                            resultBSP = sphere1BSP.union(sphere2BSP);
-                            break;
-                        case "none": // noop;
-                    }
+                    resultBSP = sphere1BSP.intersect(sphere2BSP);
 
                     if (!resultBSP) resultBSP = sphere1BSP;
 
@@ -260,6 +201,7 @@
                         // do nothing
                     } else {
                         result = resultBSP.toMesh();
+                        result.scale.set(controls.scale, controls.scale, controls.scale);
                         result.geometry.computeFaceNormals();
                         result.geometry.computeVertexNormals();
                         scene.add(result);
@@ -271,13 +213,9 @@
 
             function createMesh(geom) {
 
-                // assign two materials
-                let meshMaterial = new THREE.MeshNormalMaterial();
-                meshMaterial.side = THREE.DoubleSide;
                 let wireFrameMat = new THREE.MeshBasicMaterial({ opacity: 0.5, wireframeLinewidth: 0.5 });
                 wireFrameMat.wireframe = true;
 
-                // create a multimaterial
                 let mesh = new THREE.Mesh(geom, wireFrameMat);
 
                 return mesh;
@@ -316,19 +254,6 @@
             function render() {
                 stats.update();
 
-
-                //            sphere.rotation.y=step+=0.01;
-
-                //            if (typeof  ThreeBSP!='undefined') {console.log(ThreeBSP)};
-                //            console.log(ThreeBSP);
-
-                if (controls.rotateResult && result) {
-                    result.rotation.y += 0.04;
-                    //      result.rotation.x+=0.04;
-                    result.rotation.z -= 0.005;
-                }
-
-                // render using requestAnimationFrame
                 requestAnimationFrame(render);
                 webGLRenderer.render(scene, camera);
             }
@@ -336,9 +261,8 @@
             function initStats() {
 
                 let stats = new Stats();
-                stats.setMode(0); // 0: fps, 1: ms
+                stats.setMode(0);
 
-                // Align top-left
                 stats.domElement.style.position = 'absolute';
                 stats.domElement.style.left = '0px';
                 stats.domElement.style.top = '0px';
