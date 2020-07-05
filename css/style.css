@@ -46,7 +46,7 @@ a:hover {
 /*headerブロック*/
 header {
 	text-align: center;	/*内容を中央よせ*/
-	font-size: 32px;
+	font-size: 200%;
 }
 
 #logo {
