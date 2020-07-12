@@ -127,7 +127,8 @@
             let latheMesh;
 
             const phiStart = Math.PI / 2;
-            let segments = 40;
+            const actual_segments = 40;
+            let segments = actual_segments;
             const start = 0;
             const end = 1;
             const pointNum = 15;
@@ -139,7 +140,7 @@
                 this.redraw = function () {
                     scene.remove(latheMesh);
 
-                    segments = 40 * controls.phiLength / (2 * Math.PI);
+                    segments = actual_segments * controls.phiLength / (2 * Math.PI);
 
                     generatePoints(segments, phiStart, controls.phiLength, controls.scale, start, end, pointNum);
                 };
@@ -155,7 +156,6 @@
 
             function generatePoints(segments, phiStart, phiLength, scale, start, end, pointNum) {
                 let points = [];
-                let height = 5;
                 let x;
                 let y;
 
