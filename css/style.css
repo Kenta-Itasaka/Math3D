@@ -143,11 +143,11 @@ header {
 	font-size: 120%;
 }
 /*画像の設定*/
-.list img {
-	width: 20%;			/*画像幅*/
-	float: left;		/*画像を左に回り込み*/
-	margin-right: 3%	/*画像の右側に空けるスペース*/
-}
+/* .list img { */
+	/* width: 20%;			画像幅 */
+	/* float: left;		画像を左に回り込み */
+	/* margin-right: 3%	画像の右側に空けるスペース */
+/* } */
 /*段落タグ*/
 .list p {
 	padding: 0px !important;
@@ -210,6 +210,12 @@ header {
     width:100%;
     height:100%;
 }
+
+.image{
+	margin-left: 10px;
+}
+
+
 
 /*フッター(ページ最下部のcopyrightのパーツ)設定
 ---------------------------------------------------------------------------*/

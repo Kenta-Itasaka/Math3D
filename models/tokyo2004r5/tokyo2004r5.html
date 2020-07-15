@@ -155,7 +155,7 @@
 
             let gui = new dat.GUI();
 
-            gui.add(controls, "r", -15.0, 15.0).onChange(function (e) {
+            gui.add(controls, "r", 0.0, 2.0).onChange(function (e) {
                 controls.r = e;
                 sphere2.position.x = controls.scale * controls.r;
             });
